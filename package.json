@@ -1,0 +1,4 @@
+{
+  "name": "serverless-nestjs-v3",
+  "packageManager": "yarn@3.4.1"
+}
