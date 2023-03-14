@@ -5,9 +5,12 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "husky install",
     "format": "prettier --ignore-path .gitignore --ignore-unknown --check \"**/*\""
   },
   "devDependencies": {
+    "husky": "8.0.3",
+    "lint-staged": "13.2.0",
     "prettier": "2.8.4"
   }
 }
