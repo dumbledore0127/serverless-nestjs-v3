@@ -1,0 +1,230 @@
+openapi: 3.0.0
+info:
+  title: サンプルAPI
+  version: "1.0"
+  description: サンプルのAPI
+  contact:
+    url: "https://github.com/somq14/serverless-nestjs-v3"
+servers:
+  - url: "http://localhost:8080"
+    description: local
+paths:
+  /me:
+    get:
+      summary: ログインユーザ取得API
+      operationId: get-me
+      description: ログインユーザを取得するAPIです。
+      tags:
+        - user
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /tasks:
+    get:
+      summary: タスク一覧API
+      operationId: list-tasks
+      description: タスクを一覧するAPIです。
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: 取得最大件数
+      tags:
+        - task
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Task"
+                required:
+                  - items
+    parameters: []
+    post:
+      summary: タスク作成API
+      operationId: post-task
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+      description: タスクを作成するAPIです。
+      tags:
+        - task
+      requestBody:
+        $ref: "#/components/requestBodies/Task"
+  "/tasks/{taskId}":
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 64
+          pattern: "^[0-9A-Za-z-]+$"
+        name: taskId
+        in: path
+        required: true
+    get:
+      summary: タスク取得API
+      tags:
+        - task
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          $ref: "#/components/responses/NotFound"
+      operationId: get-task
+      description: タスクを取得するAPIです。
+    delete:
+      summary: タスク削除API
+      operationId: delete-task
+      responses:
+        "204":
+          description: No Content
+      tags:
+        - task
+      description: タスクを削除するAPIです。
+    put:
+      summary: タスク更新API
+      operationId: put-task
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          $ref: "#/components/responses/NotFound"
+      tags:
+        - task
+      description: タスクを更新するAPIです。
+      requestBody:
+        $ref: "#/components/requestBodies/Task"
+components:
+  schemas:
+    Id:
+      title: Id
+      x-stoplight:
+        id: bkn3up595n80o
+      type: string
+      minLength: 1
+      maxLength: 64
+      pattern: "^[0-9A-Za-z-]+$"
+    User:
+      title: User
+      x-stoplight:
+        id: tm7wqaf8lnx5u
+      type: object
+      properties:
+        userId:
+          $ref: "#/components/schemas/Id"
+      required:
+        - userId
+    Task:
+      title: Task
+      type: object
+      properties:
+        taskId:
+          $ref: "#/components/schemas/Id"
+        taskName:
+          $ref: "#/components/schemas/TaskName"
+        taskStatus:
+          $ref: "#/components/schemas/TaskStatus"
+        estimatedTime:
+          type: number
+          format: duration
+          description: タスクの見積もり時間。単位は分。
+        notification:
+          type: boolean
+        createdTime:
+          type: string
+          format: date-time
+      required:
+        - taskId
+        - taskName
+        - taskStatus
+        - notification
+        - createdTime
+    TaskStatus:
+      title: TaskStatus
+      x-stoplight:
+        id: 2943z7y9axgk5
+      type: string
+      enum:
+        - todo
+        - in-progress
+        - in-review
+        - done
+    TaskName:
+      title: TaskStatus
+      type: string
+      x-stoplight:
+        id: 21078dd40d469
+      minLength: 1
+      maxLength: 256
+  securitySchemes:
+    ID Token:
+      type: http
+      scheme: bearer
+  responses:
+    NotFound:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                  - not-found
+              message:
+                type: string
+            required:
+              - code
+              - message
+  requestBodies:
+    Task:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              taskName:
+                $ref: "#/components/schemas/TaskName"
+              taskStatus:
+                $ref: "#/components/schemas/TaskStatus"
+              estimatedTime:
+                format: duration
+                description: タスクの見積もり時間。単位は分。
+                type: number
+                nullable: true
+              notification:
+                type: boolean
+            required:
+              - taskName
+              - taskStatus
+              - notification
+  parameters: {}
+security:
+  - ID Token: []
+tags:
+  - name: task
+  - name: user

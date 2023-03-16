@@ -2735,6 +2735,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@serverless-nestjs-v3/openapi@workspace:packages/openapi":
+  version: 0.0.0-use.local
+  resolution: "@serverless-nestjs-v3/openapi@workspace:packages/openapi"
+  languageName: unknown
+  linkType: soft
+
 "@sinclair/typebox@npm:^0.24.1":
   version: 0.24.51
   resolution: "@sinclair/typebox@npm:0.24.51"
