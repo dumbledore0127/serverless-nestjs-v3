@@ -3,6 +3,7 @@
 # cf. https://git-scm.com/docs/gitignore
 
 node_modules/
+dist/
 
 # yarn 向け設定
 # cf. https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
