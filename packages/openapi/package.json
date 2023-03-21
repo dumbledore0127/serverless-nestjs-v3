@@ -1,10 +1,13 @@
 {
   "name": "@serverless-nestjs-v3/openapi",
   "scripts": {
+    "preprocess": "tsx src/preprocess.ts",
     "generate": "orval -c orval.config.js"
   },
   "dependencies": {
     "orval": "6.12.1",
-    "prettier": "2.8.5"
+    "prettier": "2.8.5",
+    "tsx": "3.12.6",
+    "yaml": "2.2.1"
   }
 }
