@@ -1,5 +1,5 @@
 module.exports = {
-  sample: {
+  web: {
     input: {
       target: "./openapi.yaml",
     },
@@ -16,6 +16,19 @@ module.exports = {
           name: "customMutator",
         },
       },
+    },
+  },
+  backend: {
+    input: {
+      target: "./openapi.yaml",
+    },
+    output: {
+      target: "../backend/src/generated/client",
+      client: "axios-functions",
+      schemas: "../backend/src/generated",
+      mode: "tags",
+      clean: true,
+      prettier: true,
     },
   },
 };
