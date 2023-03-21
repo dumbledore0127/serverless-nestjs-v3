@@ -1,3 +1,10 @@
 {
-  "name": "@serverless-nestjs-v3/openapi"
+  "name": "@serverless-nestjs-v3/openapi",
+  "scripts": {
+    "generate": "orval -c orval.config.js"
+  },
+  "dependencies": {
+    "orval": "6.12.1",
+    "prettier": "2.8.5"
+  }
 }
