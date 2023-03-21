@@ -8,6 +8,7 @@ import {
 } from "@nestjs/common";
 import { ApiException } from "./api-exception";
 import { MESSAGES } from "@nestjs/core/constants";
+import { HttpError } from "express-openapi-validator/dist/framework/types";
 
 @Catch()
 export class ApiExceptionFilter extends BaseExceptionFilter {
@@ -16,6 +17,16 @@ export class ApiExceptionFilter extends BaseExceptionFilter {
   toHttpException(exception: unknown): HttpException {
     if (exception instanceof HttpException) {
       return exception;
+    }
+
+    if (exception instanceof HttpError) {
+      return new ApiException(
+        {
+          message: exception.message,
+        },
+        exception.status,
+        exception
+      );
     }
 
     const res = this.isHttpError(exception)
