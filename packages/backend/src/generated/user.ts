@@ -5,8 +5,15 @@
  * サンプルのAPI
  * OpenAPI spec version: 1.0
  */
-import type { Id } from "./id";
+import { Get } from "@nestjs/common";
+import { ApiException } from "../core/api-exception";
+import type { User } from "./model";
 
-export interface User {
-  userId: Id;
-}
+/**
+ * ログインユーザを取得するAPIです。
+ * @summary ログインユーザ取得API
+ */
+export const GetMePath = "/me";
+export const GetMeRoute = () => Get(GetMePath);
+export type GetMeResponse = User;
+export class GetMeException extends ApiException<never> {}

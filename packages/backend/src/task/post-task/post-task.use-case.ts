@@ -1,13 +1,17 @@
-import { Body, Controller, Injectable, Logger, Post } from "@nestjs/common";
-import { Task, TaskBody } from "src/generated";
+import { Body, Controller, Injectable, Logger } from "@nestjs/common";
+import {
+  PostTaskBody,
+  PostTaskResponse,
+  PostTaskRoute,
+} from "src/generated/task";
 
 @Controller()
 @Injectable()
 export class PostTaskUseCase {
   private readonly logger = new Logger(PostTaskUseCase.name);
 
-  @Post("/tasks")
-  async execute(@Body() body: TaskBody): Promise<Task> {
+  @PostTaskRoute()
+  async execute(@Body() body: PostTaskBody): Promise<PostTaskResponse> {
     this.logger.log({ body });
 
     return {

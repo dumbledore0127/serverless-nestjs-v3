@@ -1,10 +1,13 @@
 {
   "name": "@serverless-nestjs-v3/openapi",
   "scripts": {
-    "preprocess": "tsx src/preprocess.ts",
-    "generate": "orval -c orval.config.js"
+    "generate": "yarn node -r esbuild-register src/index.ts"
   },
   "dependencies": {
+    "@types/mustache": "4.2.2",
+    "esbuild": "0.17.12",
+    "esbuild-register": "3.4.2",
+    "mustache": "4.2.0",
     "orval": "6.12.1",
     "prettier": "2.8.5",
     "tsx": "3.12.6",

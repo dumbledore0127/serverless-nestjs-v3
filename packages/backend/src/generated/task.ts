@@ -5,16 +5,69 @@
  * サンプルのAPI
  * OpenAPI spec version: 1.0
  */
-import type { Id } from "./id";
-import type { TaskName } from "./taskName";
-import type { TaskStatus } from "./taskStatus";
+import { Get, Post, Put, Delete } from "@nestjs/common";
+import { ApiException } from "../core/api-exception";
+import type {
+  ListTasks200,
+  ListTasksParams,
+  Task,
+  TaskBody,
+  NotFoundResponse,
+} from "./model";
 
-export interface Task {
-  taskId: Id;
-  taskName: TaskName;
-  taskStatus: TaskStatus;
-  /** タスクの見積もり時間。単位は分。 */
-  estimatedTime?: number;
-  notification: boolean;
-  createdTime: string;
-}
+/**
+ * タスクを一覧するAPIです。
+ * @summary タスク一覧API
+ */
+export const ListTasksPath = "/tasks";
+export const ListTasksRoute = () => Get(ListTasksPath);
+export type ListTasksQuery = ListTasksParams;
+export type ListTasksResponse = ListTasks200;
+export class ListTasksException extends ApiException<never> {}
+
+/**
+ * タスクを作成するAPIです。
+ * @summary タスク作成API
+ */
+export const PostTaskPath = "/tasks";
+export const PostTaskRoute = () => Post(PostTaskPath);
+export type PostTaskBody = TaskBody;
+export type PostTaskResponse = Task;
+export class PostTaskException extends ApiException<never> {}
+
+/**
+ * タスクを取得するAPIです。
+ * @summary タスク取得API
+ */
+export const GetTaskPath = "/tasks/:taskId";
+export const GetTaskRoute = () => Get(GetTaskPath);
+export type GetTaskParam = {
+  taskId: string;
+};
+export type GetTaskResponse = Task;
+export class GetTaskException extends ApiException<NotFoundResponse["code"]> {}
+
+/**
+ * タスクを削除するAPIです。
+ * @summary タスク削除API
+ */
+export const DeleteTaskPath = "/tasks/:taskId";
+export const DeleteTaskRoute = () => Delete(DeleteTaskPath);
+export type DeleteTaskParam = {
+  taskId: string;
+};
+export type DeleteTaskResponse = void;
+export class DeleteTaskException extends ApiException<never> {}
+
+/**
+ * タスクを更新するAPIです。
+ * @summary タスク更新API
+ */
+export const PutTaskPath = "/tasks/:taskId";
+export const PutTaskRoute = () => Put(PutTaskPath);
+export type PutTaskParam = {
+  taskId: string;
+};
+export type PutTaskBody = TaskBody;
+export type PutTaskResponse = Task;
+export class PutTaskException extends ApiException<NotFoundResponse["code"]> {}

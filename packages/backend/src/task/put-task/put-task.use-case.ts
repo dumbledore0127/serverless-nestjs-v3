@@ -1,24 +1,22 @@
+import { Body, Controller, Injectable, Logger, Param } from "@nestjs/common";
 import {
-  Body,
-  Controller,
-  Injectable,
-  Logger,
-  Param,
-  Put,
-} from "@nestjs/common";
-import { Task, TaskBody } from "src/generated";
+  PutTaskBody,
+  PutTaskParam,
+  PutTaskResponse,
+  PutTaskRoute,
+} from "src/generated/task";
 
 @Controller()
 @Injectable()
 export class PutTaskUseCase {
   private readonly logger = new Logger(PutTaskUseCase.name);
 
-  @Put("/tasks/:taskId")
+  @PutTaskRoute()
   async execute(
-    @Param() taskId: string,
-    @Body() body: TaskBody
-  ): Promise<Task> {
-    this.logger.log({ taskId, body });
+    @Param() param: PutTaskParam,
+    @Body() body: PutTaskBody
+  ): Promise<PutTaskResponse> {
+    this.logger.log({ param, body });
 
     return {
       taskId: "XXXX",

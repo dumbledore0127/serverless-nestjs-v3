@@ -1,12 +1,13 @@
-import { Controller, Delete, Injectable, Logger, Param } from "@nestjs/common";
+import { Controller, Injectable, Logger, Param } from "@nestjs/common";
+import { DeleteTaskRoute, DeleteTaskParam } from "src/generated/task";
 
 @Controller()
 @Injectable()
 export class DeleteTaskUseCase {
   private readonly logger = new Logger(DeleteTaskUseCase.name);
 
-  @Delete("/tasks/:taskId")
-  async execute(@Param() taskId: string): Promise<void> {
-    this.logger.log({ taskId });
+  @DeleteTaskRoute()
+  async execute(@Param() param: DeleteTaskParam): Promise<void> {
+    this.logger.log({ param });
   }
 }

@@ -1,11 +1,11 @@
-import { Injectable, Controller, Get } from "@nestjs/common";
-import { User } from "src/generated";
+import { Controller, Injectable } from "@nestjs/common";
+import { GetMeResponse, GetMeRoute } from "src/generated/user";
 
 @Controller()
 @Injectable()
 export class GetMeUseCase {
-  @Get("/me")
-  async execute(): Promise<User> {
+  @GetMeRoute()
+  async execute(): Promise<GetMeResponse> {
     return {
       userId: "XXXX",
     };

@@ -1,14 +1,18 @@
-import { Controller, Get, Injectable, Logger, Param } from "@nestjs/common";
-import { Task } from "src/generated";
+import { Controller, Injectable, Logger, Param } from "@nestjs/common";
+import {
+  GetTaskParam,
+  GetTaskResponse,
+  GetTaskRoute,
+} from "src/generated/task";
 
 @Controller()
 @Injectable()
 export class GetTaskUseCase {
   private readonly logger = new Logger(GetTaskUseCase.name);
 
-  @Get("/tasks/:taskId")
-  async execute(@Param("taskId") taskId: string): Promise<Task> {
-    this.logger.log({ taskId });
+  @GetTaskRoute()
+  async execute(@Param() param: GetTaskParam): Promise<GetTaskResponse> {
+    this.logger.log({ param });
 
     return {
       taskId: "XXXX",

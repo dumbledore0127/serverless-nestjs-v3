@@ -1,13 +1,17 @@
-import { Controller, Get, Injectable, Logger, Query } from "@nestjs/common";
-import { ListTasks200, ListTasksParams } from "src/generated";
+import { Controller, Injectable, Logger, Query } from "@nestjs/common";
+import {
+  ListTasksQuery,
+  ListTasksResponse,
+  ListTasksRoute,
+} from "src/generated/task";
 
 @Controller()
 @Injectable()
 export class ListTasksUseCase {
   private readonly logger = new Logger(ListTasksUseCase.name);
 
-  @Get("/tasks")
-  async execute(@Query() query: ListTasksParams): Promise<ListTasks200> {
+  @ListTasksRoute()
+  async execute(@Query() query: ListTasksQuery): Promise<ListTasksResponse> {
     this.logger.log({ query });
 
     return {
