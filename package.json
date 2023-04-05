@@ -6,7 +6,10 @@
   ],
   "scripts": {
     "postinstall": "husky install",
-    "format": "prettier --ignore-path .gitignore --ignore-unknown --check \"**/*\""
+    "format": "prettier --ignore-path .gitignore --ignore-unknown --check \"**/*\"",
+    "backend": "yarn workspace backend",
+    "openapi": "yarn workspace @serverless-nestjs-v3/openapi",
+    "web": "yarn workspace web"
   },
   "devDependencies": {
     "husky": "8.0.3",
